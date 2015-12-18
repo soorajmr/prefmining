@@ -8,6 +8,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import graphlab as gl
 import itertools
+import pickle
+import numpy np
 
 ratings = pd.read_csv("data/ml-20m/ratings.csv")
 
@@ -58,6 +60,10 @@ print("The best model: Training RMSE %f, test RMSE %f" % (best_model['training_r
 
 #print(best_model)
 
-# ## Save the vectors
-prefvectors = best_model.coefficients['movieId']['movieId', 'factors'].to_dataframe()
-prefvectors.to_csv("data/output/pref_vectors.csv")
+vecotrs = np.array(best_model.coefficients['movieId']['factors'])
+movieIds = map(int, list(best_model.coefficients['movieId']['movieId']))
+with open('data/output/pref_vectors.pickle', 'wb') as f:
+    pickle.dump(vecotrs, f)
+
+with open('data/output/pref_movieids.pickle', 'wb') as f:
+    pickle.dump(movieIds, f)
