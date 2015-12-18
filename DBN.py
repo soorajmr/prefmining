@@ -571,3 +571,21 @@ class DBN(object):
 
         return pretrain_fns
 
+    def get_output_generator(self, X, batch_size):
+        index = T.lscalar('index')
+        get_output_i = theano.function(
+            [index],
+            self.sigmoid_layers[-1].output,
+            givens={
+                self.x: X[
+                    index * batch_size: (index + 1) * batch_size
+                ]
+            }
+        )
+
+        batch_count = X.get_value(borrow=True).shape[0] / batch_size
+        def output_fn():
+             return [get_output_i(i) for i in xrange(batch_count)]
+
+        return output_fn
+
