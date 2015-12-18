@@ -53,13 +53,13 @@ wiki_vectors = [d2v_wiki.docvecs[t] for t in wiki_titles]
 #wiki_titles = [unicode(s, 'utf-8') for s in wiki_titles]
 #wiki_titles = [t.encode('utf-8') for t in wiki_titles]
 #vecdf = pd.DataFrame(dict(title=wiki_titles, vector=wiki_vectors))
-print("Generated content vectors for %d movies" %len(vecdf))
+print("Generated content vectors for %d movies" %len(wiki_titles))
 #vecdf.to_csv("data/output/content_vectors.csv")
 
-with open('data/output/content_titles.pickle', 'rb') as f:
+with open('data/output/content_titles.pickle', 'wb') as f:
     pickle.dump(wiki_titles, f)
 
-with open('data/output/content_vectors.pickle', 'rb') as f:
+with open('data/output/content_vectors.pickle', 'wb') as f:
     pickle.dump(wiki_vectors, f)
 
 #print(vecdf[:10])
